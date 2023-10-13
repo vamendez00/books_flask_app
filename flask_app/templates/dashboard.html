@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DASHBOARD</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body class="bg-dark">
+    {% with messages = get_flashed_messages(category_filter=['user_login_success']) %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="text-bg-success"><strong>{{message}}</strong></p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {% with messages = get_flashed_messages(category_filter=['user_registration_success']) %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="text-bg-success"><strong>{{message}}</strong></p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {% with messages = get_flashed_messages(category_filter=['user_update_success']) %}
+    {% if messages %}
+        {% for message in messages %}
+            <p class="text-bg-success"><strong>{{message}}</strong></p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+    <div class="w-100 d-flex flex-column align-items-center justify-content-center bg-primary-subtle p-5">
+        <div class="w-100 d-flex justify-content-between bg-primary-subtle pt-2 pe-5">
+            <h1 class="w-50 justify-content-start ps-5">Welcome {{one_user.f_name}}!</h1>
+            <div>
+                <a class="btn btn-dark mt-3 justify-self-end" href="/books/new_book">+ ADD a book</a>
+                <a class="btn btn-dark mt-3 justify-self-end" href="/users/account_info/{{session['logged_in_id']}}">Account</a>
+                <a class="btn btn-dark mt-3 justify-self-end" href="/users/user_logout">LOG OUT</a>
+            </div>
+        </div>
+
+
+        <div class="w-100 h-100 bg-primary-subtle d-flex flex-column align-items-center">
+            <h2 class="align-self-start mx-5 pt-3 ps-5">All Books</h2>
+            <div class="w-75 h-100 bg-light d-flex flex-column justify-content-start mx-5 p-5 shadow-sm border-5">
+                <table class="table table-striped">
+                    {% for book in all_books %}
+                    <tr>
+                        <td><strong><a href="/books/show_book/{{book.id}}"> {{book.title}}</a> by {{book.author}}</strong> (Posted by {{book.reader.f_name}})</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <!-- <a class="btn btn-dark mt-3" href="/books/new_book">ADD NEW book</a> -->
+            </div><br>
+
+        </div>
+    </div>
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

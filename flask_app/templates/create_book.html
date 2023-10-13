@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USERS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body class="bg-dark">
+    <div class="w-100 d-flex flex-column align-items-center justify-content-center bg-primary-subtle p-5">
+        <div class="w-100 d-flex justify-content-between align-items-baseline bg-primary-subtle">
+            <h1 class="w-50 justify-content-start">Add a New book!</h1>
+            <div>
+                <a class="btn btn-dark justify-self-end" href="/users/dashboard/{{session['logged_in_id']}}">Dashboard</a>
+                <a class="btn btn-dark justify-self-end" href="/users/user_logout">LOG OUT</a>
+            </div>
+            <!-- <a class="btn btn-dark justify-self-end" href="/users/dashboard">Dashboard</a>
+            <a class="btn btn-dark justify-self-end" href="/users/user_logout">LOG OUT</a> -->
+        </div>
+        <!-- <div class="w-100 d-flex justify-content-start bg-primary-subtle pt-5">
+            <h2 class="w-50 justify-content-start ps-5">books</h2>
+        </div> -->
+        <div class="w-75 h-100 bg-light d-flex flex-column justify-content-start align-items-start p-5 mt-5 shadow-sm border-5">
+            {% with messages = get_flashed_messages(category_filter=["books"]) %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="text-bg-danger"><strong>{{message}}</strong></p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form class="w-100 h-75 d-flex justify-content-between" action="/books/create_book" method="post">
+                <div class="w-100">
+                    <label class="form-label h5" for="title">Title: </label>
+                    <input class="form-control bg-light-subtle pt-1 px-1 border-1 shadow-sm" type="text" name="title"><br>
+
+                    <label class="form-label h5" for="author">Author: </label>
+                    <textarea class="form-control bg-light-subtle pt-1 px-1 border-1 shadow-sm" type="textarea" name="author"></textarea><br>
+
+                    <label class="form-label h5" for="page_count">Number of pages: </label>
+                    <input class="form-control bg-light-subtle pt-1 px-1 border-1 shadow-sm" type="number" name="page_count"><br>
+
+                    <input type="hidden" name="user_id" value="{{session['logged_in_id']}}">
+                    <input class="btn btn-dark mt-5" type="submit" value="ADD book">
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
